@@ -11,3 +11,6 @@ wheels/
 
 # ENV Vars
 .env
+
+# Scripts
+commit.sh
