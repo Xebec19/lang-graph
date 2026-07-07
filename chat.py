@@ -53,7 +53,7 @@ graph_builder.add_node("endnode", endnode)
 
 graph_builder.add_edge(START, "chatbot")
 graph_builder.add_conditional_edges("chatbot", evaluate_response)
-graph_builder.add_conditional_edges("chatbot_gemini", endnode)
+graph_builder.add_edge("chatbot_gemini", endnode)
 graph_builder.add_edge("endnode", END)
 
 graph = graph_builder.compile()
