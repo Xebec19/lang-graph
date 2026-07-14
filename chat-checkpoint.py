@@ -34,9 +34,16 @@ with MongoDBSaver.from_conn_string(DB_URI) as checkpointer:
 
     config = {"configurable": {"thread_id": "123"}}
 
-    updated_state = graph_with_checkpointer.invoke(
-        MessagesState({"messages": [{"role": "user", "content": "What is my name ?"}]}),
-        config,
-    )
+    # for chunk in graph_with_checkpointer.stream(
+    #     MessagesState({"messages": [{"role": "user", "content": "What is my name ?"}]}),
+    #     config,
+    #     stream_mode="values",
+    # ):
+    #     chunk["messages"][-1].pretty_print()
 
-    print(updated_state["messages"][-1].content)
+    for chunk in graph_with_checkpointer.stream(
+        MessagesState({"messages": [{"role": "user", "content": "What is my name ?"}]}),
+        config=config,
+        version="v3",
+    ):
+        print(chunk["chatbot"]["messages"][-1].pretty_print())
